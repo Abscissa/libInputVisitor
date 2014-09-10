@@ -1,0 +1,61 @@
+﻿libInputVisitor
+===============
+
+As [explained here](http://semitwist.com/articles/article/view/combine-coroutines-and-input-ranges-for-dead-simple-d-iteration), this simple library makes it easy to write [D](http://dlang.org) [input range](http://dlang.org/phobos/std_range.html) generators in a straightforward coroutine style.
+
+This does come with a downside: Since D has no built-in support for coroutines, this library is implemented using D [fibers](http://dlang.org/phobos/core_thread.html#Fiber). This means every yield and resume require a context switch. This makes it considerably slower than foreach or an ordinary event-based input-range. Depending on your use-case, this may, or may not, be an issue.
+
+This is licensed under the [Do What The Fuck You Want To Public License, Version 2](http://sam.zoy.org/wtfpl/).
+
+Usage
+-----
+To use, just add a ```visit()``` function (or two, or three...) to your struct or class as demonstrated in the sample below. Then, obtain your instant input range by calling ```inputVisitor!YourElemType(yourObject)```.
+
+Sample
+------
+```d
+// testInputVisitor.d
+// Requires DMD compiler v2.059 or up
+import std.algorithm;
+import std.range;
+import std.stdio;
+import libInputVisitor;
+
+struct Foo
+{
+	string[] data = ["hello", "world"];
+	
+	void visit(InputVisitor!(Foo, string) v)
+	{
+		v.yield("a");
+		v.yield("b");
+		foreach(str; data)
+			v.yield(str);
+	}
+
+	void visit(InputVisitor!(Foo, int) v)
+	{
+		v.yield(1);
+		v.yield(2);
+		v.yield(3);
+	}
+}
+
+void main()
+{
+	Foo foo;
+
+	// Prints: a, b, hello, world
+	foreach(item; foo.inputVisitor!string)
+		writeln(item);
+
+	// Prints: 1, 2, 3
+	foreach(item; foo.inputVisitor!int)
+		writeln(item);
+
+	// It's a range! Prints: 10, 30
+	auto myRange = foo.inputVisitor!int;
+	foreach(item; myRange.filter!( x => x!=2 )().map!( x => x*10 )())
+		writeln(item);
+}
+```

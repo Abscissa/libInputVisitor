@@ -19,7 +19,12 @@ as shown below. Details are at: http://sam.zoy.org/wtfpl/
   0. You just DO WHAT THE FUCK YOU WANT TO. 
 +/
 
-// Should work with DMD 2.059 and up
+/++
+Should work with DMD 2.059 and up
+
+For more info on this, see:
+http://semitwist.com/articles/article/view/combine-coroutines-and-input-ranges-for-dead-simple-d-iteration
++/
 
 import core.thread;
 
