@@ -1,5 +1,7 @@
 ﻿// libInputVisitorExample.d
 // Requires DMD compiler v2.059 or up
+// To complile and run:
+//    rdmd libInputVisitorExample.d
 import std.algorithm;
 import std.range;
 import std.stdio;
