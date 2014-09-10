@@ -9,12 +9,12 @@ This is open-course software licensed under the [WTFPL](http://sam.zoy.org/wtfpl
 
 Usage
 -----
-Just add a ```visit()``` function (or two, or three...) to your struct or class as demonstrated in the sample below. Then, obtain your instant input range by calling ```inputVisitor!YourElemType(yourObject)```.
+Just add a ```visit()``` function (or two, or three...) to your struct or class as demonstrated in the [sample](https://github.com/Abscissa/libInputVisitor/blob/master/libInputVisitorExample.d) below. Then, obtain your instant input range by calling ```inputVisitor!YourElemType(yourObject)```.
 
 Sample
 ------
 ```d
-// testInputVisitor.d
+// libInputVisitorExample.d
 // Requires DMD compiler v2.059 or up
 import std.algorithm;
 import std.range;
