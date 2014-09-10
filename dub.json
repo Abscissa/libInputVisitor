@@ -1,0 +1,9 @@
+{
+	"name": "libInputVisitor",
+	"description": "Write D input range generators in a straightforward coroutine style",
+	"authors": ["Nick Sabalausky"],
+	"homepage": "https://github.com/abscissa/libInputVisitor",
+	"license": "WTFPL",
+	"sourcePaths": ["."],
+	"importPaths": ["."]
+}
