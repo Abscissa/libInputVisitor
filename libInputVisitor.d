@@ -34,10 +34,10 @@ import core.thread;
 class InputVisitor(Obj, Elem) : Fiber
 {
 	bool started = false;
-	Obj* obj;
-	this(ref Obj obj)
+	Obj obj;
+	this(Obj obj)
 	{
-		this.obj = &obj;
+		this.obj = obj;
 		super(&run);
 	}
 
@@ -84,7 +84,7 @@ class InputVisitor(Obj, Elem) : Fiber
 
 template inputVisitor(Elem)
 {
-	@property InputVisitor!(Obj, Elem) inputVisitor(Obj)(ref Obj obj)
+	@property InputVisitor!(Obj, Elem) inputVisitor(Obj)(Obj obj)
 	{
 		return new InputVisitor!(Obj, Elem)(obj);
 	}

@@ -10,9 +10,12 @@ import libInputVisitor;
 struct Foo
 {
 	string[] data = ["hello", "world"];
+	bool wasVisited = false;
 	
 	void visit(InputVisitor!(Foo, string) v)
 	{
+		wasVisited = true;
+		
 		v.yield("a");
 		v.yield("b");
 		foreach(str; data)
@@ -21,6 +24,8 @@ struct Foo
 
 	void visit(InputVisitor!(Foo, int) v)
 	{
+		wasVisited = true;
+
 		v.yield(1);
 		v.yield(2);
 		v.yield(3);
@@ -43,4 +48,13 @@ void main()
 	auto myRange = foo.inputVisitor!int;
 	foreach(item; myRange.filter!( x => x!=2 )().map!( x => x*10 )())
 		writeln(item);
+	
+	// A NOTE ABOUT STRUCTS
+	// --------------------
+	// Remember that 'foo' is a struct (ie, pass-by-value), therefore
+	// InputVisitor only iterates a COPY of 'foo'. To access InputVisitor's
+	// copy of 'foo', use '.obj':
+	assert(&myRange.obj != &foo);   // Different copies of 'foo'
+	assert(!foo.wasVisited);        // Original 'foo' was only copied, never used.
+	assert(myRange.obj.wasVisited); // InputRange's COPY of 'foo' was used.
 }
