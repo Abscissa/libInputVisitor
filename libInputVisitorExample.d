@@ -37,6 +37,10 @@ void main()
 	Foo foo;
 
 	// Prints: a, b, hello, world
+	//
+	// Note: If you get a stack overflow, try increasing the fiber's
+	// stack size, for example:
+	//   foo.inputVisitor!string(4096*32)
 	foreach(item; foo.inputVisitor!string)
 		writeln(item);
 

@@ -38,7 +38,24 @@ class InputVisitor(Obj, Elem) : Fiber
 	this(Obj obj)
 	{
 		this.obj = obj;
-		super(&run);
+
+		version(Windows) // Issue #1
+		{
+			import core.sys.windows.windows : SYSTEM_INFO, GetSystemInfo;
+			SYSTEM_INFO info;
+			GetSystemInfo(&info);
+			auto PAGESIZE = info.dwPageSize;
+
+			super(&run, PAGESIZE * 16);
+		}
+		else
+			super(&run);
+	}
+
+	this(Obj obj, size_t stackSize)
+	{
+		this.obj = obj;
+		super(&run, stackSize);
 	}
 
 	private void run()
@@ -87,5 +104,10 @@ template inputVisitor(Elem)
 	@property InputVisitor!(Obj, Elem) inputVisitor(Obj)(Obj obj)
 	{
 		return new InputVisitor!(Obj, Elem)(obj);
+	}
+
+	@property InputVisitor!(Obj, Elem) inputVisitor(Obj)(Obj obj, size_t stackSize)
+	{
+		return new InputVisitor!(Obj, Elem)(obj, stackSize);
 	}
 }
