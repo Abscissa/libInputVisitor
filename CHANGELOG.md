@@ -3,6 +3,10 @@
 
 (Dates below are YYYY/MM/DD)
 
+v1.2.2 - 2016/09/19
+-------------------
+- **Fixed:** For certain element types (such as [TaggedAlgebraic](https://github.com/s-ludwig/taggedalgebraic)), got a compile error: "Error: field _front must be initialized in constructor"
+
 v1.2.1 - 2016/09/19
 -------------------
 - **New:**: Added optional param `size_t stackSize` to constructor.

@@ -73,7 +73,7 @@ class InputVisitor(Obj, Elem) : Fiber
 	}
 	
 	// Member 'front' must be a function due to DMD Issue #5403
-	private Elem _front;
+	private Elem _front = Elem.init; // Default initing here avoids "Error: field _front must be initialized in constructor"
 	@property Elem front()
 	{
 		ensureStarted();
