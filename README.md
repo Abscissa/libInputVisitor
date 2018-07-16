@@ -5,7 +5,7 @@ This simple library makes it easy to write [D](http://dlang.org) [input range](h
 
 This does come with a downside: Since D has no built-in support for coroutines, this library is implemented using D [fibers](http://dlang.org/phobos/core_thread.html#Fiber). This means every yield and resume require a context switch. This makes it considerably slower than foreach or an ordinary event-based input-range (but still very much faster than threads). Depending on your use-case, this may, or may not, be an issue. On the bright side, this does make it trivial to yield from inside any depth of function calls, and even from recursive functions.
 
-This is open-course software licensed under the [WTFPL](http://sam.zoy.org/wtfpl/).
+This is open-sourse software licensed under the [WTFPL](http://sam.zoy.org/wtfpl/).
 
 Usage
 -----
